@@ -20,16 +20,11 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -s 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -s 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# Instalar Composer
+# Instalar Composer por si acaso
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copiar el proyecto
+# Copiar todo el proyecto (incluyendo tu carpeta vendor ya lista)
 COPY . /var/www/html
 
 # Permisos
 RUN chown -R www-data:www-data /var/www/html/writable /var/www/html/public
-
-# Instalar dependencias del proyecto (con la corrección de plataforma)
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-intl
-
-EXPOSE 80
