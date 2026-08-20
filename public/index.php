@@ -1,5 +1,7 @@
 <?php
 
+// Forzar modo desarrollo y visualización de errores para ver el fallo real
+$_SERVER['CI_ENVIRONMENT'] = 'development';
 error_reporting(-1);
 ini_set('display_errors', '1');
 
@@ -44,15 +46,10 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
  *---------------------------------------------------------------
  * BOOTSTRAP THE APPLICATION
  *---------------------------------------------------------------
- * This process sets up the path constants, loads and registers
- * our autoloader, along with Composer's, loads our constants
- * and fires up an environment-specific bootstrapping.
  */
 
 // LOAD OUR PATHS CONFIG FILE
-// This is the line that might need to be changed, depending on your folder structure.
 require FCPATH . '../app/Config/Paths.php';
-// ^^^ Change this line if you move your application folder
 
 $paths = new Paths();
 
