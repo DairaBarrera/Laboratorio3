@@ -24,31 +24,31 @@ class Database extends Config
      *
      * @var array<string, mixed>
      */
-   public array $default = [
-    'DSN'          => '',
-    'hostname'     => 'localhost',
-    'username'     => 'root',
-    'password'     => '',
-    'database'     => 'sistema_colegio',
-    'DBDriver'     => 'MySQLi',
-    'DBPrefix'     => '',
-    'pConnect'     => false,
-    'DBDebug'      => true,
-    'charset'      => 'utf8mb4',
-    'DBCollat'     => 'utf8mb4_general_ci',
-    'swapPre'      => '',
-    'encrypt'      => false,
-    'compress'     => false,
-    'strictOn'     => false,
-    'failover'     => [],
-    'port'         => 3306,
-    'numberNative' => false,
-    'dateFormat'   => [
-        'date'     => 'Y-m-d',
-        'datetime' => 'Y-m-d H:i:s',
-        'time'     => 'H:i:s',
-    ],
-];
+    public array $default = [
+        'DSN'          => '',
+        'hostname'     => 'altaria.proxy.rlwy.net',
+        'username'     => 'root',
+        'password'     => 'HzyzuqOyRVRsbDJysGyvrSOvcXpgxtGR',
+        'database'     => 'railway',
+        'DBDriver'     => 'MySQLi',
+        'DBPrefix'     => '',
+        'pConnect'     => false,
+        'DBDebug'      => true,
+        'charset'      => 'utf8mb4',
+        'DBCollat'     => 'utf8mb4_general_ci',
+        'swapPre'      => '',
+        'encrypt'      => false,
+        'compress'     => false,
+        'strictOn'     => false,
+        'failover'     => [],
+        'port'         => 44537,
+        'numberNative' => false,
+        'dateFormat'   => [
+            'date'     => 'Y-m-d',
+            'datetime' => 'Y-m-d H:i:s',
+            'time'     => 'H:i:s',
+        ],
+    ];
 
     //    /**
     //     * Sample database connection for SQLite3.
@@ -131,7 +131,7 @@ class Database extends Config
     //     * Sample database connection for OCI8.
     //     *
     //     * You may need the following environment variables:
-    //     *   NLS_LANG                = 'AMERICAN_AMERICA.UTF8'
+    //     *   NLS_LANG                 = 'AMERICAN_AMERICA.UTF8'
     //     *   NLS_DATE_FORMAT         = 'YYYY-MM-DD HH24:MI:SS'
     //     *   NLS_TIMESTAMP_FORMAT    = 'YYYY-MM-DD HH24:MI:SS'
     //     *   NLS_TIMESTAMP_TZ_FORMAT = 'YYYY-MM-DD HH24:MI:SS'
