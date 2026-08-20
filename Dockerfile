@@ -20,11 +20,16 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -s 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -s 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# Instalar Composer por si acaso
+# Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copiar todo el proyecto (incluyendo tu carpeta vendor ya lista)
+# Copiar el proyecto
 COPY . /var/www/html
 
 # Permisos
 RUN chown -R www-data:www-data /var/www/html/writable /var/www/html/public
+
+# Instalar dependencias automáticamente dentro del contenedor
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+
+EXPOSE 80
