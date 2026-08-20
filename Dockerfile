@@ -1,20 +1,20 @@
 FROM php:8.2-apache
 
-# Actualizar e instalar dependencias del sistema esenciales
+# Instalar extensiones y dependencias necesarias para MySQLi en Debian
 RUN apt-get update && apt-get install -y \
-    git \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libzip-dev \
     unzip \
-    libicu-dev \
-    libonig-dev \
-    libzip-dev
+    git \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd mysqli pdo pdo_mysql zip
 
-# Instalar extensiones de PHP necesarias para CodeIgniter y MySQL
-RUN docker-php-ext-install intl mbstring zip pdo_mysql mysqli
-
-# Habilitar mod_rewrite de Apache para las rutas limpias
+# Habilitar mod_rewrite de Apache para CodeIgniter
 RUN a2enmod rewrite
 
-# Cambiar el DocumentRoot de Apache a la carpeta "public"
+# Configurar el DocumentRoot de Apache a la carpeta public
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -s 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -s 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
@@ -22,13 +22,13 @@ RUN sed -ri -s 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copiar los archivos del proyecto
+# Copiar el proyecto
 COPY . /var/www/html
 
-# Establecer permisos de escritura para las carpetas writable
+# Permisos
 RUN chown -R www-data:www-data /var/www/html/writable /var/www/html/public
 
-# Instalar dependencias de PHP con Composer
+# Instalar dependencias del proyecto
 RUN composer install --no-dev --optimize-autoloader
 
 EXPOSE 80
